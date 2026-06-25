@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StratValidator &mdash; Statistical validation tools for trading strategies</title>
+<meta name="description" content="A free, open-source toolkit to test whether your backtest is real, your portfolio is balanced, and your strategy can survive the conditions that kill most retail traders.">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d1117;
+  --bg-elev: #161b22;
+  --bg-elev-2: #1c232c;
+  --border: #30363d;
+  --border-soft: #21262d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --text-faint: #6e7681;
+  --accent: #39d0d8;
+  --accent-dim: #2ba9b1;
+  --accent-soft: rgba(57, 208, 216, 0.1);
+  --warn: #f0883e;
+  --danger: #f85149;
+  --code-bg: #0a0d12;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle background texture */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(57, 208, 216, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(99, 102, 241, 0.05), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- TOP NAV ---------- */
+.topnav {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.brand-mark {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-mark::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+}
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  padding: 80px 0 96px;
+  position: relative;
+}
+
+.brand-header { margin-bottom: 48px; }
+
+.brand-name {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.brand-meta {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.brand-meta .dot {
+  color: var(--text-faint);
+  margin: 0 8px;
+}
+
+.version-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(57, 208, 216, 0.25);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 10px;
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+
+.hero-headline {
+  font-size: clamp(32px, 5.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  max-width: 820px;
+}
+
+.hero-subhead {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--text-dim);
+  max-width: 720px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #0a1416;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: all 0.15s;
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent-dim);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(57, 208, 216, 0.25);
+}
+
+.btn-star {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elev);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+}
+
+.btn-star:hover {
+  background: var(--bg-elev-2);
+  border-color: var(--text-faint);
+}
+
+.btn-star .count {
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border-left: 1px solid var(--border);
+  padding-left: 10px;
+  margin-left: 4px;
+}
+
+.link-secondary {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 1px dashed var(--text-faint);
+  padding-bottom: 1px;
+  transition: color 0.15s;
+}
+
+.link-secondary:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+.trust-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin-top: 8px;
+}
+
+.trust-signals li {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  padding: 5px 12px;
+  border-radius: 50px;
+}
+
+/* ---------- SECTION SHARED ---------- */
+section { padding: 64px 0; position: relative; }
+
+.section-label {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.section-lead {
+  font-size: 16px;
+  color: var(--text-dim);
+  max-width: 720px;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border-soft);
+  margin: 0;
+}
+
+/* ---------- TOOLS GRID ---------- */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 820px) {
+  .tools-grid { grid-template-columns: 1fr; }
+}
+
+.tool-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(57, 208, 216, 0.15);
+}
+
+.tool-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tool-card:hover::before { opacity: 1; }
+
+.tool-tag {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.tool-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.tool-card p {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ---------- WHY EXISTS ---------- */
+.why p {
+  font-size: 16px;
+  color: var(--text-dim);
+  max-width: 720px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.why p strong { color: var(--text); font-weight: 600; }
+
+/* ---------- METHODOLOGY ---------- */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (max-width: 820px) {
+  .method-grid { grid-template-columns: 1fr; }
+}
+
+.method-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.method-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-family: var(--font-mono);
+}
+
+.method-card p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.citations {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: var(--bg-elev);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.citations h4 {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.citations ul {
+  list-style: none;
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.citations li::before {
+  content: "—";
+  color: var(--text-faint);
+  margin-right: 8px;
+}
+
+/* ---------- QUICK EXAMPLE ---------- */
+.example-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.example-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 12px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.example-header::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.example-label {
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.example-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  color: var(--text-dim);
+}
+
+.example-line .key { color: var(--text-faint); }
+.example-line .val { color: var(--text); }
+.example-line .val.fail { color: var(--danger); }
+.example-line .val.warn { color: var(--warn); }
+.example-line .val.pass { color: var(--accent); }
+
+.example-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 16px 0;
+}
+
+.verdict {
+  background: rgba(248, 81, 73, 0.08);
+  border: 1px solid rgba(248, 81, 73, 0.3);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-top: 16px;
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.verdict strong { color: var(--danger); }
+
+/* ---------- NOT FOR ---------- */
+.not-list {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.not-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-dim);
+  font-size: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.not-list li:last-child { border-bottom: none; }
+
+.not-list li::before {
+  content: "×";
+  color: var(--danger);
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+
+/* ---------- ROADMAP ---------- */
+.roadmap-list {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.roadmap-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 15px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  line-height: 1.6;
+}
+
+.roadmap-list li:last-child { border-bottom: none; }
+
+.roadmap-status {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.roadmap-status.shipped {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(57, 208, 216, 0.25);
+}
+
+.roadmap-status.progress {
+  color: var(--warn);
+  background: rgba(240, 136, 62, 0.1);
+  border: 1px solid rgba(240, 136, 62, 0.25);
+}
+
+.roadmap-status.future {
+  color: var(--text-faint);
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+}
+
+.roadmap-item-text strong { color: var(--text); font-weight: 600; }
+
+/* ---------- FOOTER ---------- */
+footer {
+  border-top: 1px solid var(--border-soft);
+  padding: 48px 0 32px;
+  margin-top: 64px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.footer-col h5 {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.footer-col p, .footer-col a {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.footer-col a:hover { color: var(--accent); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.footer-newsletter {
+  font-size: 12px;
+  color: var(--text-faint);
+  margin-top: 12px;
+}
+
+.footer-newsletter a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 2px;
+}
+
+.footer-newsletter a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+</style>
+</head>
+<body>
+
+<!-- ============ TOP NAV ============ -->
+<div class="container">
+  <nav class="topnav">
+    <a href="#" class="brand-mark">StratValidator</a>
+    <div class="nav-links">
+      <a href="#tools">Tools</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#example">Example</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="https://github.com/ctharp/stratvalidator-core" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="brand-header">
+      <div class="brand-name">StratValidator <span class="version-badge">v0.1.0 &middot; Beta</span></div>
+      <div class="brand-meta">
+        Open Source <span class="dot">&middot;</span> MIT License <span class="dot">&middot;</span> Built for retail traders
+      </div>
+    </div>
+
+    <h1 class="hero-headline">
+      Statistical validation tools for trading strategies.
+    </h1>
+
+    <p class="hero-subhead">
+      A free, open-source toolkit to test whether your backtest is real,
+      your portfolio is balanced, and your strategy can survive the conditions
+      that kill most retail traders.
+    </p>
+
+    <div class="cta-row">
+      <a href="https://github.com/ctharp/stratvalidator-core" class="btn-primary" target="_blank" rel="noopener">
+        View on GitHub
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+      <a href="https://github.com/ctharp/stratvalidator-core" class="btn-star" target="_blank" rel="noopener">
+        &#9733; Star
+        <span class="count">on GitHub</span>
+      </a>
+      <a href="#methodology" class="link-secondary">Read the methodology</a>
+    </div>
+
+    <ul class="trust-signals">
+      <li>&#9733; Open Source</li>
+      <li>&#9878; MIT License</li>
+      <li>&#128187; Runs locally</li>
+      <li>&#128274; No signup required</li>
+    </ul>
+  </div>
+</header>
+
+<hr class="section-divider">
+
+<!-- ============ TOOLS ============ -->
+<section id="tools">
+  <div class="container">
+    <span class="section-label">The Toolkit</span>
+    <h2 class="section-title">Three tools. One purpose.</h2>
+    <p class="section-lead">
+      Each tool addresses a specific failure mode in retail strategy development.
+      Together they form a complete pre-deployment validation workflow.
+    </p>
+
+    <div class="tools-grid">
+      <article class="tool-card">
+        <div class="tool-tag">01 &middot; Specification</div>
+        <h3>Prompt Builder</h3>
+        <p>Structured strategy specification &mdash; turn vague trading ideas into testable, repeatable strategy definitions.</p>
+      </article>
+
+      <article class="tool-card">
+        <div class="tool-tag">02 &middot; Statistical Testing</div>
+        <h3>Backtest Validator</h3>
+        <p>Sign-flip permutation, Monte Carlo bootstrap, and walk-forward analysis to detect overfitting in your strategy results.</p>
+      </article>
+
+      <article class="tool-card">
+        <div class="tool-tag">03 &middot; Risk Analysis</div>
+        <h3>Portfolio Analyzer</h3>
+        <p>Correlation analysis, drawdown stacking, and risk exposure modeling across multiple strategies.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ============ WHY THIS EXISTS ============ -->
+<section class="why">
+  <div class="container">
+    <span class="section-label">Background</span>
+    <h2 class="section-title">Why this exists</h2>
+    <p>
+      Most retail backtests are <strong>overfit</strong>. A strategy that looks profitable across years of historical data
+      often performs that way for one reason: it was tuned, by hand or by optimizer, to match the noise in the sample.
+      When deployed forward, the edge disappears.
+    </p>
+    <p>
+      The statistical methods used by institutional quants to detect this &mdash; permutation testing, Monte Carlo
+      resampling, walk-forward validation &mdash; are well-documented in the academic literature but rarely applied
+      in retail workflows. The math is straightforward. The tooling was missing.
+    </p>
+    <p>
+      StratValidator is an attempt to close that gap. It is not a trading platform. It is not a signal service.
+      It is a set of small, focused tools that answer one question: <strong>given the trades I observed, how confident
+      should I be that the underlying strategy has a real edge?</strong>
+    </p>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ============ METHODOLOGY ============ -->
+<section id="methodology">
+  <div class="container">
+    <span class="section-label">Methodology</span>
+    <h2 class="section-title">How the validation works</h2>
+    <p class="section-lead">
+      The Backtest Validator applies three independent statistical tests. Passing one is not enough.
+      A strategy that fails any of them is flagged for further investigation.
+    </p>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <h4>Sign-Flip Permutation</h4>
+        <p>Randomly flips the sign of each trade's P&amp;L thousands of times to estimate the distribution of outcomes under a null hypothesis of no edge. If the observed result is not significantly above the null distribution, the apparent edge may be noise.</p>
+      </div>
+      <div class="method-card">
+        <h4>Monte Carlo Bootstrap</h4>
+        <p>Resamples the trade sequence with replacement to estimate the range of plausible equity curves and worst-case drawdowns. Reveals sequence risk and stress-tests the strategy against orderings that did not appear in the original backtest.</p>
+      </div>
+      <div class="method-card">
+        <h4>Walk-Forward Analysis</h4>
+        <p>Splits the data into rolling in-sample and out-of-sample windows. A strategy that performs well in-sample but poorly out-of-sample is almost always overfit. The efficiency ratio between the two windows is the headline metric.</p>
+      </div>
+    </div>
+
+    <div class="citations">
+      <h4>Further reading</h4>
+      <ul>
+        <li>L&oacute;pez de Prado, M. (2018). <em>Advances in Financial Machine Learning.</em> Wiley.</li>
+        <li>Bailey, D. H., &amp; L&oacute;pez de Prado, M. (2014). The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality. <em>Journal of Portfolio Management.</em></li>
+        <li>Bailey, D. H., Borwein, J. M., L&oacute;pez de Prado, M., &amp; Zhu, Q. J. (2014). Pseudo-Mathematics and Financial Charlatanism. <em>Notices of the AMS.</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ============ EXAMPLE ============ -->
+<section id="example">
+  <div class="container">
+    <span class="section-label">Quick Example</span>
+    <h2 class="section-title">What the output looks like</h2>
+    <p class="section-lead">
+      A strategy with strong-looking surface metrics that fails statistical validation.
+      The kind of result that is easy to miss when only watching win rate and profit factor.
+    </p>
+
+    <div class="example-block">
+      <div class="example-header">backtest-validator &middot; example.csv</div>
+
+      <span class="example-label">Surface metrics</span>
+      <div class="example-line"><span class="key">Total trades</span><span class="val">248</span></div>
+      <div class="example-line"><span class="key">Win rate</span><span class="val">62.1%</span></div>
+      <div class="example-line"><span class="key">Profit factor</span><span class="val">1.84</span></div>
+      <div class="example-line"><span class="key">Net profit</span><span class="val">$4,210</span></div>
+
+      <hr class="example-divider">
+
+      <span class="example-label">Statistical validation</span>
+      <div class="example-line"><span class="key">Sign-flip permutation p-value</span><span class="val warn">0.23</span></div>
+      <div class="example-line"><span class="key">Monte Carlo probability of ruin</span><span class="val fail">18.4%</span></div>
+      <div class="example-line"><span class="key">Walk-forward efficiency ratio</span><span class="val fail">0.31</span></div>
+
+      <hr class="example-divider">
+
+      <div class="verdict">
+        <strong>FAIL.</strong> The observed result is not statistically distinguishable from chance (p &gt; 0.05).
+        Monte Carlo simulation shows an 18.4% probability of catastrophic drawdown under realistic trade reordering.
+        Out-of-sample performance is 31% of in-sample &mdash; a signature of overfitting. Do not deploy.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ============ NOT FOR ============ -->
+<section>
+  <div class="container">
+    <span class="section-label">Expectations</span>
+    <h2 class="section-title">What this toolkit does not do</h2>
+    <p class="section-lead">
+      Clarity matters more than marketing. These tools are useful for one specific thing.
+      They are not a substitute for the other parts of a trading practice.
+    </p>
+
+    <ul class="not-list">
+      <li>This is not financial advice. Nothing here is a recommendation to enter, exit, or hold any position.</li>
+      <li>This is not a trading platform. It does not place orders, connect to brokers, or stream market data.</li>
+      <li>This is not a signal service. It does not tell you what to trade or when to trade it.</li>
+      <li>This does not guarantee profitability. A strategy that passes validation can still lose money in live markets.</li>
+      <li>This does not replace risk management. Position sizing, stop discipline, and capital preservation are still your responsibility.</li>
+      <li>This does not eliminate the need for judgment. Statistics are inputs to a decision, not the decision itself.</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ============ ROADMAP ============ -->
+<section id="roadmap">
+  <div class="container">
+    <span class="section-label">Roadmap</span>
+    <h2 class="section-title">What is shipped, in progress, and planned</h2>
+    <p class="section-lead">
+      Honest accounting of the current state. The shipped tools are usable today.
+      Everything else is work in progress, no guarantees on timing.
+    </p>
+
+    <ul class="roadmap-list">
+      <li>
+        <span class="roadmap-status shipped">Shipped</span>
+        <span class="roadmap-item-text"><strong>Backtest Validator</strong> &mdash; sign-flip permutation, Monte Carlo bootstrap, walk-forward analysis.</span>
+      </li>
+      <li>
+        <span class="roadmap-status shipped">Shipped</span>
+        <span class="roadmap-item-text"><strong>Portfolio Analyzer</strong> &mdash; correlation, drawdown stacking, allocation review.</span>
+      </li>
+      <li>
+        <span class="roadmap-status shipped">Shipped</span>
+        <span class="roadmap-item-text"><strong>Prompt Builder</strong> &mdash; structured strategy specification for repeatable testing.</span>
+      </li>
+      <li>
+        <span class="roadmap-status future">Planned</span>
+        <span class="roadmap-item-text"><strong>PropFirm Validator</strong> &mdash; simulation of real prop firm rule sets against strategy results. In development, not yet released.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <div class="footer-col">
+        <h5>Project</h5>
+        <a href="https://github.com/ctharp/stratvalidator-core" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#roadmap">Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h5>Community</h5>
+        <a href="https://github.com/ctharp/stratvalidator-core/issues" target="_blank" rel="noopener">Open an issue</a>
+        <a href="https://github.com/ctharp/stratvalidator-core/discussions" target="_blank" rel="noopener">Discussions</a>
+        <p>Have a question or want to collaborate? Open an issue on GitHub.</p>
+      </div>
+      <div class="footer-col">
+        <h5>License</h5>
+        <p>Released under the MIT License.</p>
+        <p>Free to use, fork, and modify.</p>
+        <p>Attribution appreciated.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        Maintained by <strong style="color: var(--text-dim);">Caleb Tharp</strong> &middot;
+        &copy; 2026 &middot;
+        MIT Licensed
+      </div>
+      <div class="footer-newsletter">
+        <a href="#">Get notified when major updates ship</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
