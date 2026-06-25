@@ -177,6 +177,17 @@ If you have feedback on priorities, open an issue.
 
 ---
 
+## Privacy & Data Handling
+
+- All processing happens in your browser or local Python environment.
+- No trade data, results, or telemetry are transmitted anywhere.
+- The browser tools use `localStorage` for session persistence only.
+- The only network request made by any tool is the one-time CDN load of
+  tesseract.js (used for OCR of error screenshots in the Prompt Builder),
+  which is pinned with Subresource Integrity.
+
+  ---
+
 ## Contributing
 
 Contributions, bug reports, and methodology critiques are welcome.
@@ -187,6 +198,13 @@ Contributions, bug reports, and methodology critiques are welcome.
 
 Code style follows standard conventions for each language. New statistical methods require references to peer-reviewed sources or recognized practitioner texts.
 
+---
+## Trademarks
+
+NinjaTrader is a trademark of NinjaTrader, LLC. Topstep, Apex Trader Funding,
+and LucidFlex are trademarks of their respective owners. This project is not
+affiliated with, endorsed by, or sponsored by any of them. References to these
+firms appear only as examples of rule sets that retail traders commonly face.
 ---
 
 ## License
