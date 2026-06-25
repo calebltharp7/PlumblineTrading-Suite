@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block common junk paths (safe defaults for GitHub Pages)
+Disallow: /node_modules/
+Disallow: /.github/
+Disallow: /tests/
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Sitemap location
+Sitemap: https://calebltharp7.github.io/StratValidator-Suite/sitemap.xml
