@@ -7,7 +7,6 @@
 <meta name="description" content="A free, open-source toolkit to test whether your backtest is real, your portfolio is balanced, and your strategy can survive the conditions that kill most retail traders.">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
   --bg: #0d1117;
   --bg-elev: #161b22;
@@ -28,9 +27,7 @@
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --font-mono: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -40,7 +37,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 /* Subtle background texture */
 body::before {
   content: "";
@@ -55,7 +51,6 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
-
 .container {
   max-width: 980px;
   margin: 0 auto;
@@ -63,7 +58,6 @@ body::before {
   position: relative;
   z-index: 1;
 }
-
 /* ---------- TOP NAV ---------- */
 .topnav {
   padding: 24px 0;
@@ -73,7 +67,6 @@ body::before {
   position: relative;
   z-index: 10;
 }
-
 .brand-mark {
   font-weight: 700;
   font-size: 15px;
@@ -84,7 +77,6 @@ body::before {
   align-items: center;
   gap: 8px;
 }
-
 .brand-mark::before {
   content: "";
   display: inline-block;
@@ -94,51 +86,41 @@ body::before {
   border-radius: 2px;
   box-shadow: 0 0 12px var(--accent);
 }
-
 .nav-links {
   display: flex;
   gap: 28px;
   font-size: 14px;
 }
-
 .nav-links a {
   color: var(--text-dim);
   text-decoration: none;
   transition: color 0.15s;
 }
-
 .nav-links a:hover { color: var(--text); }
-
 @media (max-width: 640px) {
   .nav-links { display: none; }
 }
-
 /* ---------- HERO ---------- */
 .hero {
   padding: 80px 0 96px;
   position: relative;
 }
-
 .brand-header { margin-bottom: 48px; }
-
 .brand-name {
   font-size: 28px;
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 6px;
 }
-
 .brand-meta {
   font-size: 13px;
   color: var(--text-dim);
   font-family: var(--font-mono);
 }
-
 .brand-meta .dot {
   color: var(--text-faint);
   margin: 0 8px;
 }
-
 .version-badge {
   display: inline-block;
   font-size: 11px;
@@ -152,7 +134,6 @@ body::before {
   vertical-align: middle;
   letter-spacing: 0.02em;
 }
-
 .hero-headline {
   font-size: clamp(32px, 5.5vw, 52px);
   font-weight: 700;
@@ -161,7 +142,6 @@ body::before {
   margin-bottom: 24px;
   max-width: 820px;
 }
-
 .hero-subhead {
   font-size: clamp(16px, 2vw, 19px);
   color: var(--text-dim);
@@ -169,7 +149,6 @@ body::before {
   margin-bottom: 40px;
   line-height: 1.6;
 }
-
 .cta-row {
   display: flex;
   align-items: center;
@@ -177,7 +156,6 @@ body::before {
   flex-wrap: wrap;
   margin-bottom: 36px;
 }
-
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -192,14 +170,12 @@ body::before {
   transition: all 0.15s;
   border: 1px solid var(--accent);
 }
-
 .btn-primary:hover {
   background: var(--accent-dim);
   border-color: var(--accent-dim);
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(57, 208, 216, 0.25);
 }
-
 .btn-star {
   display: inline-flex;
   align-items: center;
@@ -214,12 +190,10 @@ body::before {
   border: 1px solid var(--border);
   transition: all 0.15s;
 }
-
 .btn-star:hover {
   background: var(--bg-elev-2);
   border-color: var(--text-faint);
 }
-
 .btn-star .count {
   color: var(--text-dim);
   font-family: var(--font-mono);
@@ -228,7 +202,6 @@ body::before {
   padding-left: 10px;
   margin-left: 4px;
 }
-
 .link-secondary {
   color: var(--text-dim);
   text-decoration: none;
@@ -237,9 +210,7 @@ body::before {
   padding-bottom: 1px;
   transition: color 0.15s;
 }
-
 .link-secondary:hover { color: var(--accent); border-bottom-color: var(--accent); }
-
 .trust-signals {
   display: flex;
   flex-wrap: wrap;
@@ -247,7 +218,6 @@ body::before {
   list-style: none;
   margin-top: 8px;
 }
-
 .trust-signals li {
   font-size: 12px;
   font-family: var(--font-mono);
@@ -257,10 +227,8 @@ body::before {
   padding: 5px 12px;
   border-radius: 50px;
 }
-
 /* ---------- SECTION SHARED ---------- */
 section { padding: 64px 0; position: relative; }
-
 .section-label {
   font-size: 12px;
   font-family: var(--font-mono);
@@ -270,7 +238,6 @@ section { padding: 64px 0; position: relative; }
   margin-bottom: 12px;
   display: block;
 }
-
 .section-title {
   font-size: clamp(24px, 3vw, 32px);
   font-weight: 700;
@@ -278,7 +245,6 @@ section { padding: 64px 0; position: relative; }
   margin-bottom: 16px;
   line-height: 1.2;
 }
-
 .section-lead {
   font-size: 16px;
   color: var(--text-dim);
@@ -286,24 +252,20 @@ section { padding: 64px 0; position: relative; }
   margin-bottom: 32px;
   line-height: 1.7;
 }
-
 .section-divider {
   border: none;
   border-top: 1px solid var(--border-soft);
   margin: 0;
 }
-
 /* ---------- TOOLS GRID ---------- */
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
-
 @media (max-width: 820px) {
   .tools-grid { grid-template-columns: 1fr; }
 }
-
 .tool-card {
   background: var(--bg-elev);
   border: 1px solid var(--border);
@@ -313,13 +275,11 @@ section { padding: 64px 0; position: relative; }
   position: relative;
   overflow: hidden;
 }
-
 .tool-card:hover {
   border-color: var(--accent-dim);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(57, 208, 216, 0.15);
 }
-
 .tool-card::before {
   content: "";
   position: absolute;
@@ -331,9 +291,7 @@ section { padding: 64px 0; position: relative; }
   opacity: 0;
   transition: opacity 0.2s;
 }
-
 .tool-card:hover::before { opacity: 1; }
-
 .tool-tag {
   font-size: 11px;
   font-family: var(--font-mono);
@@ -342,20 +300,68 @@ section { padding: 64px 0; position: relative; }
   letter-spacing: 0.1em;
   margin-bottom: 8px;
 }
-
 .tool-card h3 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
   letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
-
 .tool-card p {
   font-size: 14px;
   color: var(--text-dim);
   line-height: 1.6;
 }
-
+/* ---------- TOOL CARD: LINK + DISABLED + BADGES ---------- */
+.tool-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.tool-card-link:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(57, 208, 216, 0.25),
+              0 0 24px rgba(57, 208, 216, 0.12);
+}
+.tool-card-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.tool-card-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.tool-card-disabled:hover {
+  border-color: var(--border);
+  transform: none;
+  box-shadow: none;
+}
+.tool-card-disabled:hover::before { opacity: 0; }
+.status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 8px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.status-badge.live {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(57, 208, 216, 0.35);
+}
+.status-badge.soon {
+  color: var(--warn);
+  background: rgba(240, 136, 62, 0.1);
+  border: 1px solid rgba(240, 136, 62, 0.3);
+}
 /* ---------- WHY EXISTS ---------- */
 .why p {
   font-size: 16px;
@@ -364,9 +370,7 @@ section { padding: 64px 0; position: relative; }
   line-height: 1.8;
   margin-bottom: 16px;
 }
-
 .why p strong { color: var(--text); font-weight: 600; }
-
 /* ---------- METHODOLOGY ---------- */
 .method-grid {
   display: grid;
@@ -374,18 +378,15 @@ section { padding: 64px 0; position: relative; }
   gap: 16px;
   margin-top: 24px;
 }
-
 @media (max-width: 820px) {
   .method-grid { grid-template-columns: 1fr; }
 }
-
 .method-card {
   background: var(--bg-elev);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
   padding: 20px;
 }
-
 .method-card h4 {
   font-size: 14px;
   font-weight: 600;
@@ -393,13 +394,11 @@ section { padding: 64px 0; position: relative; }
   color: var(--text);
   font-family: var(--font-mono);
 }
-
 .method-card p {
   font-size: 13px;
   color: var(--text-dim);
   line-height: 1.6;
 }
-
 .citations {
   margin-top: 32px;
   padding: 20px 24px;
@@ -407,7 +406,6 @@ section { padding: 64px 0; position: relative; }
   border-left: 3px solid var(--accent);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
-
 .citations h4 {
   font-size: 12px;
   font-family: var(--font-mono);
@@ -416,20 +414,17 @@ section { padding: 64px 0; position: relative; }
   letter-spacing: 0.1em;
   margin-bottom: 12px;
 }
-
 .citations ul {
   list-style: none;
   font-size: 13px;
   color: var(--text-dim);
   line-height: 1.8;
 }
-
 .citations li::before {
   content: "—";
   color: var(--text-faint);
   margin-right: 8px;
 }
-
 /* ---------- QUICK EXAMPLE ---------- */
 .example-block {
   background: var(--code-bg);
@@ -442,7 +437,6 @@ section { padding: 64px 0; position: relative; }
   margin-top: 20px;
   overflow-x: auto;
 }
-
 .example-header {
   display: flex;
   align-items: center;
@@ -455,7 +449,6 @@ section { padding: 64px 0; position: relative; }
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
-
 .example-header::before {
   content: "";
   width: 10px;
@@ -464,7 +457,6 @@ section { padding: 64px 0; position: relative; }
   background: var(--accent);
   display: inline-block;
 }
-
 .example-label {
   color: var(--accent);
   font-size: 12px;
@@ -473,26 +465,22 @@ section { padding: 64px 0; position: relative; }
   margin-bottom: 8px;
   display: block;
 }
-
 .example-line {
   display: flex;
   justify-content: space-between;
   padding: 4px 0;
   color: var(--text-dim);
 }
-
 .example-line .key { color: var(--text-faint); }
 .example-line .val { color: var(--text); }
 .example-line .val.fail { color: var(--danger); }
 .example-line .val.warn { color: var(--warn); }
 .example-line .val.pass { color: var(--accent); }
-
 .example-divider {
   border: none;
   border-top: 1px dashed var(--border);
   margin: 16px 0;
 }
-
 .verdict {
   background: rgba(248, 81, 73, 0.08);
   border: 1px solid rgba(248, 81, 73, 0.3);
@@ -504,15 +492,12 @@ section { padding: 64px 0; position: relative; }
   color: var(--text);
   line-height: 1.6;
 }
-
 .verdict strong { color: var(--danger); }
-
 /* ---------- NOT FOR ---------- */
 .not-list {
   list-style: none;
   margin-top: 24px;
 }
-
 .not-list li {
   padding: 14px 0;
   border-bottom: 1px solid var(--border-soft);
@@ -522,9 +507,7 @@ section { padding: 64px 0; position: relative; }
   align-items: flex-start;
   gap: 12px;
 }
-
 .not-list li:last-child { border-bottom: none; }
-
 .not-list li::before {
   content: "×";
   color: var(--danger);
@@ -533,13 +516,11 @@ section { padding: 64px 0; position: relative; }
   flex-shrink: 0;
   line-height: 1.3;
 }
-
 /* ---------- ROADMAP ---------- */
 .roadmap-list {
   list-style: none;
   margin-top: 20px;
 }
-
 .roadmap-list li {
   padding: 14px 0;
   border-bottom: 1px solid var(--border-soft);
@@ -550,9 +531,7 @@ section { padding: 64px 0; position: relative; }
   gap: 14px;
   line-height: 1.6;
 }
-
 .roadmap-list li:last-child { border-bottom: none; }
-
 .roadmap-status {
   font-size: 11px;
   font-family: var(--font-mono);
@@ -563,27 +542,22 @@ section { padding: 64px 0; position: relative; }
   flex-shrink: 0;
   margin-top: 2px;
 }
-
 .roadmap-status.shipped {
   color: var(--accent);
   background: var(--accent-soft);
   border: 1px solid rgba(57, 208, 216, 0.25);
 }
-
 .roadmap-status.progress {
   color: var(--warn);
   background: rgba(240, 136, 62, 0.1);
   border: 1px solid rgba(240, 136, 62, 0.25);
 }
-
 .roadmap-status.future {
   color: var(--text-faint);
   background: var(--bg-elev);
   border: 1px solid var(--border-soft);
 }
-
 .roadmap-item-text strong { color: var(--text); font-weight: 600; }
-
 /* ---------- FOOTER ---------- */
 footer {
   border-top: 1px solid var(--border-soft);
@@ -592,7 +566,6 @@ footer {
   color: var(--text-dim);
   font-size: 14px;
 }
-
 .footer-row {
   display: flex;
   justify-content: space-between;
@@ -601,7 +574,6 @@ footer {
   gap: 24px;
   margin-bottom: 24px;
 }
-
 .footer-col h5 {
   font-size: 12px;
   font-family: var(--font-mono);
@@ -610,7 +582,6 @@ footer {
   letter-spacing: 0.1em;
   margin-bottom: 12px;
 }
-
 .footer-col p, .footer-col a {
   font-size: 13px;
   color: var(--text-dim);
@@ -619,9 +590,7 @@ footer {
   margin-bottom: 6px;
   line-height: 1.6;
 }
-
 .footer-col a:hover { color: var(--accent); }
-
 .footer-bottom {
   border-top: 1px solid var(--border-soft);
   padding-top: 20px;
@@ -633,26 +602,21 @@ footer {
   font-size: 12px;
   color: var(--text-faint);
 }
-
 .footer-newsletter {
   font-size: 12px;
   color: var(--text-faint);
   margin-top: 12px;
 }
-
 .footer-newsletter a {
   color: var(--text-dim);
   text-decoration: underline;
   text-decoration-color: var(--border);
   text-underline-offset: 2px;
 }
-
 .footer-newsletter a:hover { color: var(--accent); text-decoration-color: var(--accent); }
-
 </style>
 </head>
 <body>
-
 <!-- ============ TOP NAV ============ -->
 <div class="container">
   <nav class="topnav">
@@ -662,11 +626,10 @@ footer {
       <a href="#methodology">Methodology</a>
       <a href="#example">Example</a>
       <a href="#roadmap">Roadmap</a>
-      <a href="https://calebltharp7.github.io/StratValidator-Suite/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/calebltharp7/StratValidator-Suite" target="_blank" rel="noopener">GitHub</a>
     </div>
   </nav>
 </div>
-
 <!-- ============ HERO ============ -->
 <header class="hero">
   <div class="container">
@@ -676,29 +639,25 @@ footer {
         Open Source <span class="dot">&middot;</span> MIT License <span class="dot">&middot;</span> Built for retail traders
       </div>
     </div>
-
     <h1 class="hero-headline">
       Statistical validation tools for trading strategies.
     </h1>
-
     <p class="hero-subhead">
       A free, open-source toolkit to test whether your backtest is real,
       your portfolio is balanced, and your strategy can survive the conditions
       that kill most retail traders.
     </p>
-
     <div class="cta-row">
-      <a href="https://calebltharp7.github.io/StratValidator-Suite/" class="btn-primary" target="_blank" rel="noopener">
+      <a href="https://github.com/calebltharp7/StratValidator-Suite" class="btn-primary" target="_blank" rel="noopener">
         View on GitHub
         <span aria-hidden="true">&rarr;</span>
       </a>
-      <a href="https://calebltharp7.github.io/StratValidator-Suite/" class="btn-star" target="_blank" rel="noopener">
+      <a href="https://github.com/calebltharp7/StratValidator-Suite" class="btn-star" target="_blank" rel="noopener">
         &#9733; Star
         <span class="count">on GitHub</span>
       </a>
       <a href="#methodology" class="link-secondary">Read the methodology</a>
     </div>
-
     <ul class="trust-signals">
       <li>&#9733; Open Source</li>
       <li>&#9878; MIT License</li>
@@ -707,9 +666,7 @@ footer {
     </ul>
   </div>
 </header>
-
 <hr class="section-divider">
-
 <!-- ============ TOOLS ============ -->
 <section id="tools">
   <div class="container">
@@ -719,31 +676,26 @@ footer {
       Each tool addresses a specific failure mode in retail strategy development.
       Together they form a complete pre-deployment validation workflow.
     </p>
-
     <div class="tools-grid">
-      <article class="tool-card">
+      Prompt_Builder/" class="tool-card tool-card-link" aria-label="Open the Prompt Builder tool">
         <div class="tool-tag">01 &middot; Specification</div>
-        <h3>Prompt Builder</h3>
+        <h3>Prompt Builder <span class="status-badge live">Live</span></h3>
         <p>Structured strategy specification &mdash; turn vague trading ideas into testable, repeatable strategy definitions.</p>
-      </article>
-
-      <article class="tool-card">
+      </a>
+      <article class="tool-card tool-card-disabled" aria-disabled="true">
         <div class="tool-tag">02 &middot; Statistical Testing</div>
-        <h3>Backtest Validator</h3>
+        <h3>Backtest Validator <span class="status-badge soon">Coming Soon</span></h3>
         <p>Sign-flip permutation, Monte Carlo bootstrap, and walk-forward analysis to detect overfitting in your strategy results.</p>
       </article>
-
-      <article class="tool-card">
+      <article class="tool-card tool-card-disabled" aria-disabled="true">
         <div class="tool-tag">03 &middot; Risk Analysis</div>
-        <h3>Portfolio Analyzer</h3>
+        <h3>Portfolio Analyzer <span class="status-badge soon">Coming Soon</span></h3>
         <p>Correlation analysis, drawdown stacking, and risk exposure modeling across multiple strategies.</p>
       </article>
     </div>
   </div>
 </section>
-
 <hr class="section-divider">
-
 <!-- ============ WHY THIS EXISTS ============ -->
 <section class="why">
   <div class="container">
@@ -766,9 +718,7 @@ footer {
     </p>
   </div>
 </section>
-
 <hr class="section-divider">
-
 <!-- ============ METHODOLOGY ============ -->
 <section id="methodology">
   <div class="container">
@@ -778,7 +728,6 @@ footer {
       The Backtest Validator applies three independent statistical tests. Passing one is not enough.
       A strategy that fails any of them is flagged for further investigation.
     </p>
-
     <div class="method-grid">
       <div class="method-card">
         <h4>Sign-Flip Permutation</h4>
@@ -793,7 +742,6 @@ footer {
         <p>Splits the data into rolling in-sample and out-of-sample windows. A strategy that performs well in-sample but poorly out-of-sample is almost always overfit. The efficiency ratio between the two windows is the headline metric.</p>
       </div>
     </div>
-
     <div class="citations">
       <h4>Further reading</h4>
       <ul>
@@ -804,9 +752,7 @@ footer {
     </div>
   </div>
 </section>
-
 <hr class="section-divider">
-
 <!-- ============ EXAMPLE ============ -->
 <section id="example">
   <div class="container">
@@ -816,25 +762,19 @@ footer {
       A strategy with strong-looking surface metrics that fails statistical validation.
       The kind of result that is easy to miss when only watching win rate and profit factor.
     </p>
-
     <div class="example-block">
       <div class="example-header">backtest-validator &middot; example.csv</div>
-
       <span class="example-label">Surface metrics</span>
       <div class="example-line"><span class="key">Total trades</span><span class="val">248</span></div>
       <div class="example-line"><span class="key">Win rate</span><span class="val">62.1%</span></div>
       <div class="example-line"><span class="key">Profit factor</span><span class="val">1.84</span></div>
       <div class="example-line"><span class="key">Net profit</span><span class="val">$4,210</span></div>
-
       <hr class="example-divider">
-
       <span class="example-label">Statistical validation</span>
       <div class="example-line"><span class="key">Sign-flip permutation p-value</span><span class="val warn">0.23</span></div>
       <div class="example-line"><span class="key">Monte Carlo probability of ruin</span><span class="val fail">18.4%</span></div>
       <div class="example-line"><span class="key">Walk-forward efficiency ratio</span><span class="val fail">0.31</span></div>
-
       <hr class="example-divider">
-
       <div class="verdict">
         <strong>FAIL.</strong> The observed result is not statistically distinguishable from chance (p &gt; 0.05).
         Monte Carlo simulation shows an 18.4% probability of catastrophic drawdown under realistic trade reordering.
@@ -843,9 +783,7 @@ footer {
     </div>
   </div>
 </section>
-
 <hr class="section-divider">
-
 <!-- ============ NOT FOR ============ -->
 <section>
   <div class="container">
@@ -855,7 +793,6 @@ footer {
       Clarity matters more than marketing. These tools are useful for one specific thing.
       They are not a substitute for the other parts of a trading practice.
     </p>
-
     <ul class="not-list">
       <li>This is not financial advice. Nothing here is a recommendation to enter, exit, or hold any position.</li>
       <li>This is not a trading platform. It does not place orders, connect to brokers, or stream market data.</li>
@@ -866,9 +803,7 @@ footer {
     </ul>
   </div>
 </section>
-
 <hr class="section-divider">
-
 <!-- ============ ROADMAP ============ -->
 <section id="roadmap">
   <div class="container">
@@ -878,19 +813,18 @@ footer {
       Honest accounting of the current state. The shipped tools are usable today.
       Everything else is work in progress, no guarantees on timing.
     </p>
-
     <ul class="roadmap-list">
       <li>
         <span class="roadmap-status shipped">Shipped</span>
-        <span class="roadmap-item-text"><strong>Backtest Validator</strong> &mdash; sign-flip permutation, Monte Carlo bootstrap, walk-forward analysis.</span>
-      </li>
-      <li>
-        <span class="roadmap-status shipped">Shipped</span>
-        <span class="roadmap-item-text"><strong>Portfolio Analyzer</strong> &mdash; correlation, drawdown stacking, allocation review.</span>
-      </li>
-      <li>
-        <span class="roadmap-status shipped">Shipped</span>
         <span class="roadmap-item-text"><strong>Prompt Builder</strong> &mdash; structured strategy specification for repeatable testing.</span>
+      </li>
+      <li>
+        <span class="roadmap-status progress">In Progress</span>
+        <span class="roadmap-item-text"><strong>Backtest Validator</strong> &mdash; sign-flip permutation, Monte Carlo bootstrap, walk-forward analysis. Targeted for next release.</span>
+      </li>
+      <li>
+        <span class="roadmap-status future">Planned</span>
+        <span class="roadmap-item-text"><strong>Portfolio Analyzer</strong> &mdash; correlation, drawdown stacking, allocation review. Planned after Backtest Validator ships.</span>
       </li>
       <li>
         <span class="roadmap-status future">Planned</span>
@@ -899,21 +833,20 @@ footer {
     </ul>
   </div>
 </section>
-
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="container">
     <div class="footer-row">
       <div class="footer-col">
         <h5>Project</h5>
-        <a href="https://calebltharp7.github.io/StratValidator-Suite/" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="https://github.com/calebltharp7/StratValidator-Suite" target="_blank" rel="noopener">View on GitHub</a>
         <a href="#methodology">Methodology</a>
         <a href="#roadmap">Roadmap</a>
       </div>
       <div class="footer-col">
         <h5>Community</h5>
-        <a href="https://calebltharp7.github.io/StratValidator-Suite/issues" target="_blank" rel="noopener">Open an issue</a>
-        <a href="https://calebltharp7.github.io/StratValidator-Suite/discussions" target="_blank" rel="noopener">Discussions</a>
+        <a href="https://github.com/calebltharp7/StratValidator-Suite/issues" target="_blank" rel="noopener">Open an issue</a>
+        <a href="https://github.com/calebltharp7/StratValidator-Suite/discussions" target="_blank" rel="noopener">Discussions</a>
         <p>Have a question or want to collaborate? Open an issue on GitHub.</p>
       </div>
       <div class="footer-col">
@@ -923,7 +856,6 @@ footer {
         <p>Attribution appreciated.</p>
       </div>
     </div>
-
     <div class="footer-bottom">
       <div>
         Maintained by <strong style="color: var(--text-dim);">Caleb Tharp</strong> &middot;
@@ -936,6 +868,5 @@ footer {
     </div>
   </div>
 </footer>
-
 </body>
 </html>
