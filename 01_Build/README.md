@@ -1,4 +1,4 @@
-## Plumbline Stage I: Build — Prompt Builder v2.0
+## Plumbline Stage I: Build — Prompt Builder v1.0
 
 _Subfolder of the **PlumblineTrading-Suite** repository._
 
