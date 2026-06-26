@@ -1,9 +1,9 @@
 # Backtest Validator
 
-https://img.shields.io/badge/version-5.1-blue
-https://img.shields.io/badge/license-MIT-green
-https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white
-https://img.shields.io/badge/a11y-WCAG_2.1-purple
+![Version](https://img.shields.io/badge/version-5.1-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![Accessibility](https://img.shields.io/badge/a11y-WCAG_2.1-purple)
 
 > **Subproject of the [StratValidator-Suite](../) repository.** This dashboard is one component of a broader strategy-validation toolkit.
 
