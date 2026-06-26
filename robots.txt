@@ -9,4 +9,4 @@ Disallow: /*.json$
 Disallow: /*.md$
 
 # Sitemap location
-Sitemap: https://calebltharp7.github.io/StratValidator-Suite/sitemap.xml
+Sitemap: https://calebltharp7.github.io/PlumblineTrading-Suite/sitemap.xml

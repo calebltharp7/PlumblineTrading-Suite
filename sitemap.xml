@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
-    <loc>https://calebltharp7.github.io/StratValidator-Suite/</loc>
-    <lastmod>2026-06-25</lastmod>
+    <loc>https://calebltharp7.github.io/PlumblineTrading-Suite/</loc>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
-    <loc>https://calebltharp7.github.io/StratValidator-Suite/1_StratValidator_Prompt_Builder/</loc>
-    <lastmod>2026-06-25</lastmod>
+    <loc>https://calebltharp7.github.io/PlumblineTrading-Suite/01_Build/</loc>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://calebltharp7.github.io/PlumblineTrading-Suite/02_Backtest_Verification/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
